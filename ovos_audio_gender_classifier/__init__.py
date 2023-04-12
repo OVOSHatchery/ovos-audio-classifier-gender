@@ -4,11 +4,6 @@ from neon_transformers import AudioTransformer
 from neon_transformers.tasks import AudioTask
 from precise_lite_runner.runner import Listener
 
-try:
-    import tensorflow.lite as tflite
-except:
-    import tflite_runtime.interpreter as tflite
-
 
 class SpeakerGenderClassifier(AudioTransformer):
     task = AudioTask.ADD_CONTEXT
@@ -22,7 +17,7 @@ class SpeakerGenderClassifier(AudioTransformer):
 
     # HACK: fixing bug in neon-transformers
     def feed_speech_chunk(self, chunk):
-        chunk = self.on_speech(chunk)
+        chunk = self.on_speech(chunk)  # <- typo in neon
         self.speech_feed.write(chunk)
 
     # plugin api
